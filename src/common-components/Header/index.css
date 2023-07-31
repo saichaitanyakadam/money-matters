@@ -1,0 +1,13 @@
+.header {
+  height: 70px;
+}
+.header-list {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  padding-left: 20px;
+}
+
+.header-list li {
+  cursor: pointer;
+}

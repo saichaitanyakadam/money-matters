@@ -1,0 +1,19 @@
+.amount-text {
+  font-size: 32px;
+  font-weight: 600;
+}
+.amount-text span {
+  font-size: 16px;
+  color: #718ebf;
+}
+.dashboard-image {
+  height: 150px;
+}
+.week-amount-text {
+  color: #718ebf;
+  font-size: 16px;
+}
+.week-amount-text span {
+  color: #333b69;
+  font-weight: 600;
+}
