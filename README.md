@@ -12,9 +12,8 @@ Add UI reference image yourself
 ### Design Files
 
 <details>
-<summary>Covid19-Dashboard</summary>
+<summary>Money-Matters</summary>
 <br/>
-Add the design files according to the route (if any) and responsiveness
 
 <!-- - [Extra Small (Size < 576px) and Small (Size >= 576px)](remove this text and add the image URL here)
 - [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px)](remove this text and add the image URL here) -->
@@ -53,7 +52,7 @@ The app must have the following functionalities:
 - Read the instructions given in the assignment carefully and list down the **Assignment Completion Checklist** for the assignment and start working on it
 - The completion Checklist includes the below-mentioned points
   - I have completed all the functionalities asked in the assignment
-  - I have used only the resources (Frameworks, Design files, APIs, third-party packages) mentioned in the assignment
+  - I have used only the resources (React,Bootstrap,react-hook-form,axios) mentioned in the assignment
   - I have modified the README.md file based on my assignment instructions
   - I have completed the assignment **ON TIME**
 - **Note:**
