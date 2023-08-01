@@ -26,6 +26,7 @@ specifiers:
   react-loader-spinner: 5.3.4
   react-router-dom: 6.14.2
   react-scripts: 4.0.3
+  react-toastify: 8.1.0
   recharts: 2.7.2
 
 dependencies:
@@ -46,6 +47,7 @@ dependencies:
   react-icons: 4.3.1_react@17.0.1
   react-loader-spinner: 5.3.4_react-dom@17.0.1+react@17.0.1
   react-router-dom: 6.14.2_react-dom@17.0.1+react@17.0.1
+  react-toastify: 8.1.0_react-dom@17.0.1+react@17.0.1
   recharts: 2.7.2_react-dom@17.0.1+react@17.0.1
 
 devDependencies:
@@ -4872,6 +4874,11 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
     dev: true
+
+  /clsx/1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /co/4.6.0:
     resolution: {integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=}
@@ -11222,6 +11229,17 @@ packages:
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
       react-transition-group: 2.9.0_react-dom@17.0.1+react@17.0.1
+    dev: false
+
+  /react-toastify/8.1.0_react-dom@17.0.1+react@17.0.1:
+    resolution: {integrity: sha512-M+Q3rTmEw/53Csr7NsV/YnldJe4c7uERcY7Tma9mvLU98QT2VhIkKwjBzzxZkJRk/oBKyUAtkyMjMgO00hx6gQ==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      clsx: 1.2.1
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
     dev: false
 
   /react-transition-group/2.9.0_react-dom@17.0.1+react@17.0.1:

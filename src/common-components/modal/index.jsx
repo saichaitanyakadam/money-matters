@@ -1,6 +1,5 @@
-import {useEffect, useState} from 'react'
-import {useNavigate, useLocation} from 'react-router-dom'
-import axios from 'axios'
+import {useEffect} from 'react'
+import 'react-toastify/dist/ReactToastify.css'
 import {useForm} from 'react-hook-form'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -10,9 +9,7 @@ import {
 } from '../../constants/AppConstants'
 import './index.css'
 
-const ModalBtn = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
+const ModalBtn = ({handleEvent, formData, show, handleHide, formType}) => {
   const {
     register,
     handleSubmit,
@@ -20,82 +17,24 @@ const ModalBtn = () => {
     formState: {errors},
   } = useForm()
 
-  const [modalShow, setModalShow] = useState(true)
-  const transactionData = location.state
-
   useEffect(() => {
-    if (location.pathname === '/edit-transaction') {
-      setValue('transaction_name', transactionData?.transaction_name)
-      setValue('amount', transactionData?.amount)
-      setValue('date', transactionData?.date.substr(0, 10))
-      setValue('type', transactionData?.type)
-      setValue('category', transactionData?.category)
+    if (formData) {
+      setValue('transaction_name', formData?.transaction_name)
+      setValue('amount', formData?.amount)
+      setValue('date', formData?.date.substr(0, 10))
+      setValue('type', formData?.type)
+      setValue('category', formData?.category)
     }
-  }, [transactionData, modalShow, setValue, location.pathname])
+  }, [setValue, formData])
 
-  const handleFormSubmit = async data => {
-    if (location.pathname === '/edit-transaction') {
-      try {
-        await axios.post(
-          'https://bursting-gelding-24.hasura.app/api/rest/update-transaction',
-          {
-            name: data.transaction_name,
-            type: data.type,
-            category: data.category,
-            amount: data.amount,
-            date: data.date,
-            id: transactionData.id,
-          },
-          {
-            headers: {
-              'content-type': 'application/json',
-              'x-hasura-admin-secret':
-                'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
-              'x-hasura-role': 'user',
-              'x-hasura-user-id': 1,
-            },
-          },
-        )
-        setModalShow(false)
-        navigate(-1)
-      } catch (error) {
-        console.error(error.message)
-      }
-    } else {
-      try {
-        await axios.post(
-          'https://bursting-gelding-24.hasura.app/api/rest/add-transaction',
-          {
-            name: data.transaction_name,
-            type: data.type,
-            category: data.category,
-            amount: data.amount,
-            date: data.date,
-            user_id: 1,
-          },
-          {
-            headers: {
-              'content-type': 'application/json',
-              'x-hasura-admin-secret':
-                'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
-              'x-hasura-role': 'user',
-              'x-hasura-user-id': 1,
-            },
-          },
-        )
-        setModalShow(false)
-        navigate(-1)
-      } catch (error) {
-        console.error(error.message)
-      }
-    }
+  const onSubmitForm = data => {
+    handleEvent(data)
   }
   return (
     <Modal
-      show={modalShow}
+      show={show}
       onHide={() => {
-        setModalShow(false)
-        navigate(-1)
+        handleHide(false)
       }}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
@@ -103,17 +42,16 @@ const ModalBtn = () => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {location.pathname === '/edit-transaction' ? 'Update' : 'Add'}{' '}
-          Transaction
+          {formType} Transaction
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
-          {location.pathname === '/edit-transaction'
+          {formType === 'Update'
             ? 'You can update your transaction here'
             : 'To Add Transaction Fill The Below Form'}
         </p>
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(onSubmitForm)}>
           <div className="">
             <label htmlFor="transaction_name">Transaction Name</label>
             <input

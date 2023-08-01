@@ -1,8 +1,9 @@
-import {useNavigate} from 'react-router-dom'
 import {useState, useRef} from 'react'
 import axios from 'axios'
 import {format} from 'date-fns'
 import Cookies from 'js-cookie'
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Table from 'react-bootstrap/Table'
 import {BsArrowDownCircle, BsArrowUpCircle, BsTrash} from 'react-icons/bs'
 import {MdOutlineModeEditOutline} from 'react-icons/md'
@@ -10,19 +11,46 @@ import './index.css'
 import ActionModal from '../action-modal'
 import profilePic from '../../assets/Ellipse103.png'
 import {tableHead} from '../../constants/AppConstants'
+import ModalBtn from '../modal'
 
 const DataTable = ({tableHeader, tableData, pagination, setLimit}) => {
   const handleLimit = () => {
     setLimit(prev => prev + 10)
   }
   const deleteData = useRef({})
-  const navigate = useNavigate()
+  const editData = useRef({})
+  const [editModal, setEditModal] = useState(false)
   const user = Cookies.get('user')
   const userId = Cookies.get('user_id')
   const [showModal, setShowModal] = useState(false)
 
-  const onEdit = item => {
-    navigate(`/edit-transaction`, {state: item})
+  const handleEdit = async data => {
+    try {
+      await axios.post(
+        'https://bursting-gelding-24.hasura.app/api/rest/update-transaction',
+        {
+          name: data.transaction_name,
+          type: data.type,
+          category: data.category,
+          amount: data.amount,
+          date: data.date,
+          id: editData.current.id,
+        },
+        {
+          headers: {
+            'content-type': 'application/json',
+            'x-hasura-admin-secret':
+              'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+            'x-hasura-role': user,
+            'x-hasura-user-id': userId,
+          },
+        },
+      )
+      toast.success('Transaction Updated')
+      setEditModal(false)
+    } catch (error) {
+      toast.error('Something Went Wrong')
+    }
   }
 
   const onDelete = async () => {
@@ -42,9 +70,10 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit}) => {
           },
         },
       )
+      toast.success('Transaction Deleted')
       setShowModal(false)
     } catch (error) {
-      console.error(error.message)
+      toast.error('Something Went Wrong')
     }
   }
 
@@ -93,7 +122,8 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit}) => {
                 <MdOutlineModeEditOutline
                   className="text-primary me-3 cursor-pointer action-btn action-btn-edit"
                   onClick={() => {
-                    onEdit(item)
+                    setEditModal(true)
+                    editData.current = item
                   }}
                 />
                 <BsTrash
@@ -113,6 +143,15 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit}) => {
                     type="Delete"
                   />
                 )}
+                {editModal && (
+                  <ModalBtn
+                    show={editData}
+                    formData={editData.current}
+                    handleEvent={handleEdit}
+                    handleHide={setEditModal}
+                    formType="Update"
+                  />
+                )}
               </td>
             </tr>
           ))}
@@ -130,6 +169,7 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit}) => {
             </button>
           </div>
         )}
+        <ToastContainer />
       </div>
     </>
   )
