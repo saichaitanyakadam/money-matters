@@ -1,6 +1,8 @@
 import {useState, useEffect, useRef} from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Header from '../../common-components/Header'
 import creditImage from '../../assets/Group.svg'
 import './index.css'
@@ -103,6 +105,7 @@ const Home = () => {
       } catch (e) {
         setError(true)
         errorMsg.current = e.message
+        toast.error('Something Went Wrong')
       }
       setLoading(false)
     }
@@ -165,6 +168,7 @@ const Home = () => {
           )}
         </div>
       )}
+      <ToastContainer />
     </div>
   )
 }

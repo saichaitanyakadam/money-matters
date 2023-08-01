@@ -69,6 +69,11 @@ export const CategoryDropdown = [
     value: 'transfer',
     label: 'Transfer',
   },
+  {
+    id: 3,
+    value: 'services',
+    label: 'Services',
+  },
 ]
 
 export const tableHeader = {

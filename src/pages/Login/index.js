@@ -3,6 +3,8 @@ import {useForm} from 'react-hook-form'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import './index.css'
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -13,26 +15,30 @@ const Login = () => {
   } = useForm()
 
   const onFormSubmit = async credential => {
-    const {data} = await axios.post(
-      'https://bursting-gelding-24.hasura.app/api/rest/get-user-id',
+    try {
+      const {data} = await axios.post(
+        'https://bursting-gelding-24.hasura.app/api/rest/get-user-id',
 
-      {
-        email: credential.email,
-        password: credential.password,
-      },
-      {
-        headers: {
-          'content-type': 'application/json',
-          'x-hasura-admin-secret':
-            'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+        {
+          email: credential.email,
+          password: credential.password,
         },
-      },
-    )
-    const userId = data?.get_user_id[0]?.id
-    if (userId) {
-      Cookies.set('user_id', userId, {expires: 30})
-      Cookies.set('user', credential.user, {expires: 30})
-      navigate('/')
+        {
+          headers: {
+            'content-type': 'application/json',
+            'x-hasura-admin-secret':
+              'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+          },
+        },
+      )
+      const userId = data?.get_user_id[0]?.id
+      if (userId) {
+        Cookies.set('user_id', userId, {expires: 30})
+        Cookies.set('user', credential.user, {expires: 30})
+        navigate('/')
+      }
+    } catch (error) {
+      toast.warn('Enter Valid Credentials')
     }
   }
 
@@ -101,6 +107,7 @@ const Login = () => {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   )
 }

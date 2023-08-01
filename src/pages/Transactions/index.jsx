@@ -1,10 +1,12 @@
 import {useState, useEffect, useRef} from 'react'
 import axios from 'axios'
+import {ToastContainer, toast} from 'react-toastify'
 import Cookies from 'js-cookie'
 import Header from '../../common-components/Header'
 import DataTable from '../../common-components/data-table'
 import {tableHeader, transactionTypes} from '../../constants/AppConstants'
 import LoaderView from '../../common-components/loader'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Transactions = () => {
   const [activeTab, setActiveTab] = useState('all')
@@ -39,6 +41,7 @@ const Transactions = () => {
         setTableData(transactions)
       } catch (e) {
         setError(true)
+        toast.error('Something Went Wrong')
         errorMsg.current = e.message
       }
       setLoading(false)
@@ -81,6 +84,7 @@ const Transactions = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   )
 }
