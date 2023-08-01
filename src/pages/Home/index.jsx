@@ -9,6 +9,7 @@ import './index.css'
 import DataTable from '../../common-components/data-table'
 import LoaderView from '../../common-components/loader'
 import BarChartView from '../../common-components/bar-chart'
+import debitImage from '../../assets/debit.svg'
 
 const groupArrayItemsByDate = arr => {
   const groupedItems = {}
@@ -147,10 +148,10 @@ const Home = () => {
                   <p className="amount-text text-danger">
                     ${amountData?.filter(item => item.type === 'debit')[0].sum}{' '}
                     <br />
-                    <span>Credit</span>
+                    <span>Debit</span>
                   </p>
                   <img
-                    src={creditImage}
+                    src={debitImage}
                     alt="credit"
                     className="dashboard-image"
                   />
