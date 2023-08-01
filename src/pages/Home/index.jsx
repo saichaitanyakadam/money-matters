@@ -110,7 +110,7 @@ const Home = () => {
       setLoading(false)
     }
     getData()
-  }, [])
+  }, [transactionsData])
 
   let weekDebit = 0
   let weekCredit = 0
