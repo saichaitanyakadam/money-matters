@@ -47,7 +47,7 @@ const Transactions = () => {
       setLoading(false)
     }
     getData()
-  }, [limit, tableData])
+  }, [limit])
 
   let filteredData = tableData
   if (activeTab === 'credit') {

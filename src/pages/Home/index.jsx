@@ -51,7 +51,7 @@ const Home = () => {
               'x-hasura-user-id': userId,
             },
             params: {
-              limit: 10,
+              limit: 100,
               offset: 0,
             },
           },
@@ -111,7 +111,7 @@ const Home = () => {
       setLoading(false)
     }
     getData()
-  }, [transactionsData])
+  }, [])
 
   let weekDebit = 0
   let weekCredit = 0
