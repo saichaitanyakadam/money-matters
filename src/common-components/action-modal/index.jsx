@@ -1,11 +1,15 @@
+import {useContext} from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import {MdOutlineWarningAmber} from 'react-icons/md'
 import {FiLogOut} from 'react-icons/fi'
 import './index.css'
+import AppContext from '../../context/AppContext'
 
 const ActionModal = ({show, handleHide, type, handleEvent}) => {
+  const context = useContext(AppContext)
   const handleClick = () => {
+    context.setEdited(true)
     handleEvent()
   }
   const handleCancel = () => {

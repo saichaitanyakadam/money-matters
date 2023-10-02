@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, useContext} from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import {ToastContainer, toast} from 'react-toastify'
@@ -10,6 +10,7 @@ import DataTable from '../../common-components/data-table'
 import LoaderView from '../../common-components/loader'
 import BarChartView from '../../common-components/bar-chart'
 import debitImage from '../../assets/debit.svg'
+import AppContext from '../../context/AppContext'
 
 const groupArrayItemsByDate = arr => {
   const groupedItems = {}
@@ -31,6 +32,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true)
   const [amountData, setAmountData] = useState([])
   const [graphData, setGraphData] = useState([])
+  const context = useContext(AppContext)
   const [error, setError] = useState(false)
   const errorMsg = useRef('')
   const [transactionsData, setTransactionsData] = useState([])
@@ -111,7 +113,7 @@ const Home = () => {
       setLoading(false)
     }
     getData()
-  }, [])
+  }, [context.edited])
 
   let weekDebit = 0
   let weekCredit = 0

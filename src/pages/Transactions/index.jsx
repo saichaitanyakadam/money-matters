@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, useContext} from 'react'
 import axios from 'axios'
 import {ToastContainer, toast} from 'react-toastify'
 import Cookies from 'js-cookie'
@@ -7,9 +7,11 @@ import DataTable from '../../common-components/data-table'
 import {tableHeader, transactionTypes} from '../../constants/AppConstants'
 import LoaderView from '../../common-components/loader'
 import 'react-toastify/dist/ReactToastify.css'
+import AppContext from '../../context/AppContext'
 
 const Transactions = () => {
   const [activeTab, setActiveTab] = useState('all')
+  const context = useContext(AppContext)
   const [tableData, setTableData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -47,7 +49,7 @@ const Transactions = () => {
       setLoading(false)
     }
     getData()
-  }, [limit])
+  }, [limit, context.edited])
 
   let filteredData = tableData
   if (activeTab === 'credit') {
