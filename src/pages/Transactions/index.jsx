@@ -46,7 +46,7 @@ const Transactions = () => {
   }, [limit])
   useEffect(() => {
     getData()
-  }, [getData, limit])
+  }, [getData])
 
   let filteredData = tableData
   if (activeTab === 'credit') {
