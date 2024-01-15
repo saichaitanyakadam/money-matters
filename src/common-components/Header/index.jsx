@@ -14,7 +14,6 @@ const Header = ({
   transactionTypes,
   activeTab,
   setActiveTab,
-  getData,
 }) => {
   const [showModal, setShowModal] = useState(false)
   const handleClick = async data => {
@@ -45,7 +44,6 @@ const Header = ({
 
       toast.success('Transaction Added Successfully')
       setShowModal(false)
-      getData()
     } catch (error) {
       toast.error('Something Went Wrong')
     }
