@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef, useContext} from 'react'
+import {useState, useEffect, useRef, useCallback} from 'react'
 import axios from 'axios'
 import {ToastContainer, toast} from 'react-toastify'
 import Cookies from 'js-cookie'
@@ -7,49 +7,46 @@ import DataTable from '../../common-components/data-table'
 import {tableHeader, transactionTypes} from '../../constants/AppConstants'
 import LoaderView from '../../common-components/loader'
 import 'react-toastify/dist/ReactToastify.css'
-import AppContext from '../../context/AppContext'
 
 const Transactions = () => {
   const [activeTab, setActiveTab] = useState('all')
-  const context = useContext(AppContext)
   const [tableData, setTableData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [limit, setLimit] = useState(10)
   const user = Cookies.get('user')
   const errorMsg = useRef('')
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const {data} = await axios.get(
-          'https://bursting-gelding-24.hasura.app/api/rest/all-transactions',
-          {
-            headers: {
-              'content-type': 'application/json',
-              'x-hasura-admin-secret':
-                'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
-              'x-hasura-role': '',
-              'x-hasura-user-id': '',
-            },
-            params: {
-              limit,
-              offset: 0,
-            },
+  const getData = useCallback(async () => {
+    try {
+      const {data} = await axios.get(
+        'https://bursting-gelding-24.hasura.app/api/rest/all-transactions',
+        {
+          headers: {
+            'content-type': 'application/json',
+            'x-hasura-admin-secret':
+              'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+            'x-hasura-role': '',
+            'x-hasura-user-id': '',
           },
-        )
-        const {transactions} = data
+          params: {
+            limit,
+            offset: 0,
+          },
+        },
+      )
+      const {transactions} = data
 
-        setTableData(transactions)
-      } catch (e) {
-        setError(true)
-        toast.error('Something Went Wrong')
-        errorMsg.current = e.message
-      }
-      setLoading(false)
+      setTableData(transactions)
+    } catch (e) {
+      setError(true)
+      toast.error('Something Went Wrong')
+      errorMsg.current = e.message
     }
+    setLoading(false)
+  }, [limit])
+  useEffect(() => {
     getData()
-  }, [limit, context.edited])
+  }, [getData, limit])
 
   let filteredData = tableData
   if (activeTab === 'credit') {
@@ -66,6 +63,7 @@ const Transactions = () => {
         transactionTypes={transactionTypes}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        getData={getData}
       />
       <div className="px-4 py-3">
         {loading ? (
@@ -81,6 +79,7 @@ const Transactions = () => {
                 pagination
                 limit={limit}
                 setLimit={setLimit}
+                getData={getData}
               />
             )}
           </div>
