@@ -13,7 +13,7 @@ import profilePic from '../../assets/Ellipse103.png'
 import {tableHead} from '../../constants/AppConstants'
 import ModalBtn from '../modal'
 
-const DataTable = ({tableHeader, tableData, pagination, setLimit}) => {
+const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
   const handleLimit = () => {
     setLimit(prev => prev + 10)
   }
@@ -48,6 +48,7 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit}) => {
       )
       toast.success('Transaction Updated')
       setEditModal(false)
+      getData()
     } catch (error) {
       toast.error('Something Went Wrong')
     }
@@ -72,6 +73,7 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit}) => {
       )
       toast.success('Transaction Deleted')
       setShowModal(false)
+      getData()
     } catch (error) {
       toast.error('Something Went Wrong')
     }
