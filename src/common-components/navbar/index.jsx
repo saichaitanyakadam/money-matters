@@ -91,13 +91,31 @@ const NavigationBar = () => {
         />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/" className="nav-link">
+            <Link
+              to="/"
+              className="nav-link"
+              onClick={() => {
+                setActive(false)
+              }}
+            >
               Dashboard
             </Link>
-            <Link to="/transactions" className="nav-link">
+            <Link
+              to="/transactions"
+              className="nav-link"
+              onClick={() => {
+                setActive(false)
+              }}
+            >
               Transactions
             </Link>
-            <Link to="/profile" className="nav-link">
+            <Link
+              to="/profile"
+              className="nav-link"
+              onClick={() => {
+                setActive(false)
+              }}
+            >
               Profile
             </Link>
             <button
