@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef, useCallback} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import axios from 'axios'
 import {ToastContainer, toast} from 'react-toastify'
 import Cookies from 'js-cookie'
@@ -13,9 +13,9 @@ const Transactions = () => {
   const [tableData, setTableData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(0)
   const user = Cookies.get('user')
-  const errorMsg = useRef('')
+  const errorMsg = ''
   const getData = useCallback(async () => {
     try {
       const {data} = await axios.get(
@@ -29,14 +29,16 @@ const Transactions = () => {
             'x-hasura-user-id': '',
           },
           params: {
-            limit,
-            offset: 0,
+            limit: 10,
+            offset: limit * 10,
           },
         },
       )
       const {transactions} = data
 
-      setTableData(transactions)
+      setTableData(
+        transactions.sort((a, b) => new Date(b.date) - new Date(a.date)),
+      )
     } catch (e) {
       setError(true)
       toast.error('Something Went Wrong')

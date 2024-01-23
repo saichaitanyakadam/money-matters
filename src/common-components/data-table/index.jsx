@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react'
+import {useState} from 'react'
 import axios from 'axios'
 import {format} from 'date-fns'
 import Cookies from 'js-cookie'
@@ -15,10 +15,14 @@ import ModalBtn from '../modal'
 
 const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
   const handleLimit = () => {
-    setLimit(prev => prev + 10)
+    setLimit(prev => (prev <= 0 ? prev : prev - 1))
   }
-  const deleteData = useRef({})
-  const editData = useRef({})
+  const handleLimitNext = () => {
+    setLimit(prev => prev + 1)
+  }
+
+  const [deleteData, setDeleteData] = useState({})
+  const [editData, setEditData] = useState({})
   const [editModal, setEditModal] = useState(false)
   const user = Cookies.get('user')
   const userId = Cookies.get('user_id')
@@ -34,7 +38,7 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
           category: data.category,
           amount: data.amount,
           date: data.date,
-          id: editData.current.id,
+          id: editData.id,
         },
         {
           headers: {
@@ -51,6 +55,7 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
       getData()
     } catch (error) {
       toast.error('Something Went Wrong')
+      console.error(error)
     }
   }
 
@@ -67,7 +72,7 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
             'x-hasura-user-id': userId,
           },
           params: {
-            id: deleteData.current,
+            id: deleteData.id,
           },
         },
       )
@@ -76,6 +81,7 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
       getData()
     } catch (error) {
       toast.error('Something Went Wrong')
+      console.error(error)
     }
   }
 
@@ -125,14 +131,14 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
                   className="text-primary me-3 cursor-pointer action-btn action-btn-edit"
                   onClick={() => {
                     setEditModal(true)
-                    editData.current = item
+                    setEditData(item)
                   }}
                 />
                 <BsTrash
                   className="text-danger action-btn action-btn-delete"
                   onClick={() => {
                     setShowModal(true)
-                    deleteData.current = item.id
+                    setDeleteData(item)
                   }}
                 />
                 {showModal && (
@@ -148,7 +154,7 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
                 {editModal && (
                   <ModalBtn
                     show={editData}
-                    formData={editData.current}
+                    formData={editData}
                     handleEvent={handleEdit}
                     handleHide={setEditModal}
                     formType="Update"
@@ -161,13 +167,20 @@ const DataTable = ({tableHeader, tableData, pagination, setLimit, getData}) => {
       </Table>
       <div>
         {pagination && (
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-end gap-4">
             <button
               type="button"
               className="btn btn-outline-dark"
               onClick={handleLimit}
             >
-              Show More
+              prev
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-dark"
+              onClick={handleLimitNext}
+            >
+              next
             </button>
           </div>
         )}

@@ -110,6 +110,8 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
+    console.log('home')
+
     getData()
   }, [getData])
 

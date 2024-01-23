@@ -14,6 +14,7 @@ import ModalBtn from '../modal'
 const NavigationBar = () => {
   const [showModal, setShowModal] = useState(false)
   const [addModal, setAddModal] = useState(false)
+  const [active, setActive] = useState(false)
   const navigate = useNavigate()
   const onLogout = () => {
     Cookies.remove('user_id')
@@ -55,6 +56,7 @@ const NavigationBar = () => {
     <Navbar
       fixed="top"
       collapseOnSelect
+      expanded={active}
       expand="lg"
       className="bg-body-tertiary d-sm-block d-lg-none"
     >
@@ -81,7 +83,12 @@ const NavigationBar = () => {
             show={addModal}
           />
         )}
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={() => {
+            setActive(prev => !prev)
+          }}
+        />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Link to="/" className="nav-link">

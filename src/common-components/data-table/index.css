@@ -1,9 +1,7 @@
 .action-btn {
   cursor: pointer;
 }
-.action-btn:hover {
-  font-size: 25px;
-}
+
 .table-header {
   font-weight: 600;
   font-size: 20px;

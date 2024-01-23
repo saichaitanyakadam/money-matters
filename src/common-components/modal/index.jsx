@@ -1,4 +1,4 @@
-import {useEffect, useContext} from 'react'
+import {useEffect} from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import {useForm} from 'react-hook-form'
 import Button from 'react-bootstrap/Button'
@@ -8,7 +8,6 @@ import {
   CategoryDropdown,
 } from '../../constants/AppConstants'
 import './index.css'
-import AppContext from '../../context/AppContext'
 
 const ModalBtn = ({handleEvent, formData, show, handleHide, formType}) => {
   const {
@@ -17,7 +16,6 @@ const ModalBtn = ({handleEvent, formData, show, handleHide, formType}) => {
     setValue,
     formState: {errors},
   } = useForm()
-  const context = useContext(AppContext)
 
   useEffect(() => {
     if (formData) {
@@ -31,7 +29,6 @@ const ModalBtn = ({handleEvent, formData, show, handleHide, formType}) => {
 
   const onSubmitForm = data => {
     handleEvent(data)
-    context.setEdited(true)
   }
   return (
     <Modal
