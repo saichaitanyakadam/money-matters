@@ -13,7 +13,6 @@ const Sidebar = ({path}) => {
   const [profileData, setProfileData] = useState({})
   const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
-<<<<<<< HEAD
 
   useEffect(() => {
     const getData = async () => {
@@ -30,43 +29,11 @@ const Sidebar = ({path}) => {
         setProfileData(data)
       } catch (e) {
         console.error(e)
-=======
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const userId = Cookies.get('user_id')
-        const user = Cookies.get('user')
-        const {data} = await axios.get(
-          'https://bursting-gelding-24.hasura.app/api/rest/profile',
-          {
-            headers: {
-              'content-type': 'application/json',
-              'x-hasura-admin-secret':
-                'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
-              'x-hasura-role': user,
-              'x-hasura-user-id': userId,
-            },
-          },
-        )
-        const {users} = data
-        setProfileData(users[0])
-      } catch (e) {
-        console.error(e.message)
->>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
       }
     }
     getData()
   }, [])
 
-<<<<<<< HEAD
-=======
-  const onLogout = () => {
-    Cookies.remove('user_id')
-    Cookies.remove('user')
-    navigate('/login')
-  }
-
->>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
   return (
     <div className="sidebar d-flex flex-column justify-content-between position-fixed d-none d-lg-flex">
       <div>
@@ -89,7 +56,6 @@ const Sidebar = ({path}) => {
           ))}
         </div>
       </div>
-<<<<<<< HEAD
       <div className="d-flex align-items-center gap-2 mb-3 p-3">
         <img
           src={profileData.profilePic}
@@ -104,34 +70,14 @@ const Sidebar = ({path}) => {
         />
         <div className="flex-grow-1">
           <p className="m-0 ">{profileData?.username}</p>
-=======
-      <div className="d-flex align-items-center justify-content-between mb-3 p-3">
-        <img src={profilePic} alt="profile" width={40} />
-        <div>
-          <p className="m-0 ">{profileData?.name}</p>
->>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
           <p className="m-0 ">{profileData?.email}</p>
         </div>
         <FiLogOut
           className="action-btn"
           onClick={() => {
-<<<<<<< HEAD
             navigate('/sign-out', {state: 'Logout'})
           }}
         />
-=======
-            setShowModal(true)
-          }}
-        />
-        {showModal && (
-          <ActionModal
-            handleHide={setShowModal}
-            show={showModal}
-            type="Logout"
-            handleEvent={onLogout}
-          />
-        )}
->>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
       </div>
     </div>
   )

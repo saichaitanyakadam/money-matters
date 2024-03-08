@@ -1,85 +1,38 @@
-import {useState, useEffect, useCallback} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import {ToastContainer, toast} from 'react-toastify'
 import Cookies from 'js-cookie'
 import Header from '../../common-components/Header'
 import DataTable from '../../common-components/data-table'
 import {tableHeader, transactionTypes} from '../../constants/AppConstants'
 import LoaderView from '../../common-components/loader'
-import 'react-toastify/dist/ReactToastify.css'
 
 const Transactions = () => {
-  const [activeTab, setActiveTab] = useState('all')
   const [tableData, setTableData] = useState([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  const [limit, setLimit] = useState(0)
-  const user = Cookies.get('user')
-  const errorMsg = ''
-  const getData = useCallback(async () => {
+  const getData = async () => {
     try {
-<<<<<<< HEAD
+      const accessToken = Cookies.get('accessToken')
       const {data} = await axios.get('http://localhost:4500/api/transactions', {
         headers: {
           'content-type': 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4MzgxMzU1MjE2NDVjZTlkYjRmZGMiLCJ1c2VybmFtZSI6Im1vbnUiLCJpYXQiOjE3MDg2NzU0ODcsImV4cCI6MTcwOTUzOTQ4N30.eJCWS5520blPsgkAth2oQZRTqo_-1cTBMVYJP4AEdCU',
-        },
-        params: {
-          limit: 10,
-          offset: limit * 10,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
       setTableData(data)
-=======
-      const {data} = await axios.get(
-        'https://bursting-gelding-24.hasura.app/api/rest/all-transactions',
-        {
-          headers: {
-            'content-type': 'application/json',
-            'x-hasura-admin-secret':
-              'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
-            'x-hasura-role': '',
-            'x-hasura-user-id': '',
-          },
-          params: {
-            limit: 10,
-            offset: limit * 10,
-          },
-        },
-      )
-      const {transactions} = data
-
-      setTableData(
-        transactions.sort((a, b) => new Date(b.date) - new Date(a.date)),
-      )
->>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
     } catch (e) {
-      setError(true)
-      toast.error('Something Went Wrong')
-      errorMsg.current = e.message
+      console.error(e)
     }
     setLoading(false)
-  }, [limit])
+  }
   useEffect(() => {
     getData()
-  }, [getData])
-
-  let filteredData = tableData
-  if (activeTab === 'credit') {
-    filteredData = tableData.filter(item => item.type === activeTab)
-  } else if (activeTab === 'debit') {
-    filteredData = tableData.filter(item => item.type === activeTab)
-  }
+  }, [])
 
   return (
     <div className="w-100">
       <Header
         heading="Transactions"
-        addTransactionBtn={user === 'user'}
         transactionTypes={transactionTypes}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
         getData={getData}
       />
       <div className="px-4 py-3">
@@ -87,22 +40,15 @@ const Transactions = () => {
           <LoaderView />
         ) : (
           <div>
-            {error ? (
-              <p>{errorMsg}</p>
-            ) : (
-              <DataTable
-                tableHeader={tableHeader}
-                tableData={filteredData}
-                pagination
-                limit={limit}
-                setLimit={setLimit}
-                getData={getData}
-              />
-            )}
+            <DataTable
+              tableHeader={tableHeader}
+              tableData={tableData}
+              pagination
+              getData={getData}
+            />
           </div>
         )}
       </div>
-      <ToastContainer />
     </div>
   )
 }

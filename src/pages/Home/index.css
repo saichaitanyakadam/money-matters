@@ -7,11 +7,7 @@
   color: #718ebf;
 }
 .dashboard-image {
-<<<<<<< HEAD
   height: 100px;
-=======
-  height: 150px;
->>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
 }
 .week-amount-text {
   color: #718ebf;
@@ -21,12 +17,9 @@
   color: #333b69;
   font-weight: 600;
 }
-<<<<<<< HEAD
 
 @media screen and (max-width: 680px) {
   .dashboard-image {
     height: 75px;
   }
 }
-=======
->>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
