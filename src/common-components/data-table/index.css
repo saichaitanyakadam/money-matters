@@ -1,0 +1,11 @@
+.action-btn {
+  cursor: pointer;
+}
+
+.table-header {
+  font-weight: 600;
+  font-size: 20px;
+}
+.table-container {
+  overflow-x: auto;
+}

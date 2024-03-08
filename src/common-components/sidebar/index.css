@@ -1,0 +1,18 @@
+.sidebar {
+  width: 20vw;
+  height: 100vh;
+  border-right: 1px solid #e2e2e2;
+  margin: 0px;
+}
+.nav-link {
+  text-decoration: none;
+  display: flex;
+  padding: 5px 30px;
+  align-content: center;
+}
+.sidebar-label {
+  font-size: 18px;
+}
+.active-tab {
+  border-left: 5px solid #2d60ff;
+}
