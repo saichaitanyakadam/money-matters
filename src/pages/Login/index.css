@@ -1,6 +1,9 @@
 .login-page {
   height: 100vh;
+<<<<<<< HEAD
   width: 100vw;
+=======
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
 }
 .label-text {
   font-size: 20px;
@@ -10,6 +13,7 @@
   border-radius: 10px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.265);
 }
+<<<<<<< HEAD
 input {
   outline: none;
   border-radius: 5px;
@@ -22,3 +26,5 @@ form {
     width: 75%;
   }
 }
+=======
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8

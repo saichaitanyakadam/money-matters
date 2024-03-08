@@ -18,6 +18,7 @@ const Transactions = () => {
   const errorMsg = ''
   const getData = useCallback(async () => {
     try {
+<<<<<<< HEAD
       const {data} = await axios.get('http://localhost:4500/api/transactions', {
         headers: {
           'content-type': 'application/json',
@@ -30,6 +31,29 @@ const Transactions = () => {
         },
       })
       setTableData(data)
+=======
+      const {data} = await axios.get(
+        'https://bursting-gelding-24.hasura.app/api/rest/all-transactions',
+        {
+          headers: {
+            'content-type': 'application/json',
+            'x-hasura-admin-secret':
+              'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+            'x-hasura-role': '',
+            'x-hasura-user-id': '',
+          },
+          params: {
+            limit: 10,
+            offset: limit * 10,
+          },
+        },
+      )
+      const {transactions} = data
+
+      setTableData(
+        transactions.sort((a, b) => new Date(b.date) - new Date(a.date)),
+      )
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
     } catch (e) {
       setError(true)
       toast.error('Something Went Wrong')

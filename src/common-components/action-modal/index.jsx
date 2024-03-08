@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import {useState} from 'react'
+=======
+import {useContext} from 'react'
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import {MdOutlineWarningAmber} from 'react-icons/md'
 import {FiLogOut} from 'react-icons/fi'
 import './index.css'
+<<<<<<< HEAD
 import {useNavigate, useLocation, useParams} from 'react-router-dom'
 import axios from 'axios'
 import Cookie from 'js-cookie'
@@ -44,12 +49,29 @@ const ActionModal = () => {
     window.history.back()
   }
 
+=======
+import AppContext from '../../context/AppContext'
+
+const ActionModal = ({show, handleHide, type, handleEvent}) => {
+  const context = useContext(AppContext)
+  const handleClick = () => {
+    context.setEdited(true)
+    handleEvent()
+  }
+  const handleCancel = () => {
+    handleHide(false)
+  }
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
   return (
     <Modal
       show={show}
       onHide={() => {
+<<<<<<< HEAD
         setShow(false)
         window.history.back()
+=======
+        handleHide(false)
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
       }}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
@@ -83,6 +105,7 @@ const ActionModal = () => {
         <Button onClick={handleClick} variant="danger">
           {type}
         </Button>
+<<<<<<< HEAD
         <Button
           onClick={() => {
             setShow(false)
@@ -90,6 +113,9 @@ const ActionModal = () => {
           }}
           variant="outline-secondary"
         >
+=======
+        <Button onClick={handleCancel} variant="outline-secondary">
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
           Cancel
         </Button>
       </Modal.Footer>

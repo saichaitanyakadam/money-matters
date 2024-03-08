@@ -1,16 +1,69 @@
 import {Link, useNavigate} from 'react-router-dom'
 import {useState} from 'react'
 import axios from 'axios'
+<<<<<<< HEAD
 import Cookie from 'js-cookie'
+=======
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Cookies from 'js-cookie'
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import logo from '../../assets/Logo.png'
+<<<<<<< HEAD
 
 const NavigationBar = () => {
   const [active, setActive] = useState(false)
   const navigate = useNavigate()
 
+=======
+import ActionModal from '../action-modal'
+import ModalBtn from '../modal'
+
+const NavigationBar = () => {
+  const [showModal, setShowModal] = useState(false)
+  const [addModal, setAddModal] = useState(false)
+  const [active, setActive] = useState(false)
+  const navigate = useNavigate()
+  const onLogout = () => {
+    Cookies.remove('user_id')
+    Cookies.remove('user')
+    navigate('/login')
+  }
+  const handleAdd = async data => {
+    const userId = Cookies.get('user_id')
+    const user = Cookies.get('user')
+
+    try {
+      await axios.post(
+        'https://bursting-gelding-24.hasura.app/api/rest/add-transaction',
+        {
+          name: data.transaction_name,
+          type: data.type,
+          category: data.category,
+          amount: data.amount,
+          date: data.date,
+          user_id: userId,
+        },
+        {
+          headers: {
+            'content-type': 'application/json',
+            'x-hasura-admin-secret':
+              'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+            'x-hasura-role': user,
+            'x-hasura-user-id': userId,
+          },
+        },
+      )
+      toast.success('Transaction Added Successfully')
+      setAddModal(false)
+    } catch (error) {
+      toast.error('Something Went Wrong')
+    }
+  }
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
   return (
     <Navbar
       fixed="top"
@@ -29,12 +82,28 @@ const NavigationBar = () => {
           type="button"
           className="btn btn-primary"
           onClick={() => {
+<<<<<<< HEAD
             navigate('/add-transaction')
           }}
         >
           Add
         </button>
 
+=======
+            setAddModal(true)
+          }}
+        >
+          Add
+        </button>{' '}
+        {addModal && (
+          <ModalBtn
+            formType="Add"
+            handleHide={setAddModal}
+            handleEvent={handleAdd}
+            show={addModal}
+          />
+        )}
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           onClick={() => {
@@ -74,14 +143,33 @@ const NavigationBar = () => {
               type="button"
               className="btn btn-outline-secondary align-self-center"
               onClick={() => {
+<<<<<<< HEAD
                 navigate('/sign-out', {state: 'Logout'})
+=======
+                setShowModal(true)
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
               }}
             >
               Logout
             </button>
+<<<<<<< HEAD
           </Nav>
         </Navbar.Collapse>
       </Container>
+=======
+            {showModal && (
+              <ActionModal
+                handleHide={setShowModal}
+                show={showModal}
+                type="Logout"
+                handleEvent={onLogout}
+              />
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+      <ToastContainer />
+>>>>>>> 2f0fdb8a5317f7a953eeaca0d885142be7a55de8
     </Navbar>
   )
 }
