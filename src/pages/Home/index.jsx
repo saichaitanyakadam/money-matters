@@ -17,40 +17,48 @@ const Home = () => {
   const [transactionsData, setTransactionsData] = useState([])
 
   const getData = useCallback(async () => {
-    const accessToken = Cookie.get('accessToken')
-    const {data} = await axios.get('http://localhost:4500/api/transactions', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      params: {
-        limit: 3,
-      },
-    })
-    setTransactionsData(data)
-    const weeklyData = await axios.get(
-      'http://localhost:4500/api/transactions/weekly-transactions',
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+    try {
+      const accessToken = Cookie.get('accessToken')
+      const {data} = await axios.get(
+        'https://money-matters-backend.onrender.com/api/transactions',
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          params: {
+            limit: 3,
+          },
         },
-      },
-    )
-    setWeeklyData(weeklyData.data)
-    const amountData = await axios.get(
-      'http://localhost:4500/api/transactions/amount',
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+      )
+      const weeklyData = await axios.get(
+        'https://money-matters-backend.onrender.com/api/transactions/weekly-transactions',
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         },
-      },
-    )
-    setAmountData(amountData.data)
-  }, [])
+      )
+      const amountData = await axios.get(
+        'https://money-matters-backend.onrender.com/api/transactions/amount',
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      setTransactionsData(data)
+      setAmountData(amountData.data)
+      setWeeklyData(weeklyData.data)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
+  }, [transactionsData, loading])
 
   useEffect(() => {
     getData()
-    setLoading(false)
-  }, [getData])
+  }, [])
   return (
     <div className="w-100">
       <Header heading="Accounts" addTransactionBtn getData={getData} />

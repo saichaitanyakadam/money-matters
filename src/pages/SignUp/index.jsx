@@ -20,7 +20,10 @@ const SignUp = () => {
     formData.append('password', credential.password)
     formData.append('profilePic', credential.profilePic[0])
     try {
-      await axios.post('http://localhost:4500/api/user/register', formData)
+      await axios.post(
+        'https://money-matters-backend.onrender.com/api/user/register',
+        formData,
+      )
       navigate('/login')
     } catch (error) {
       console.error(error)

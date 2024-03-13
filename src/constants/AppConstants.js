@@ -74,6 +74,16 @@ export const CategoryDropdown = [
     value: 'services',
     label: 'Services',
   },
+  {
+    id: 4,
+    value: 'expenses',
+    label: 'Expenses',
+  },
+  {
+    id: 5,
+    value: 'refund',
+    label: 'Refund',
+  },
 ]
 
 export const tableHeader = {

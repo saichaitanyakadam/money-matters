@@ -1,4 +1,4 @@
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import {useState} from 'react'
 import axios from 'axios'
 import Cookie from 'js-cookie'
@@ -6,9 +6,12 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import logo from '../../assets/Logo.png'
+import ProfileModal from '../profile-modal'
 
 const NavigationBar = () => {
   const [active, setActive] = useState(false)
+  const [show, setShow] = useState(false)
+  const location = useLocation()
   const navigate = useNavigate()
 
   return (
@@ -22,18 +25,30 @@ const NavigationBar = () => {
       <Container>
         <Navbar.Brand>
           <Link to="/">
-            <img src={logo} alt="company-logo" />
+            <img src={logo} alt="company-logo" width={150} />
           </Link>
         </Navbar.Brand>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => {
-            navigate('/add-transaction')
-          }}
-        >
-          Add
-        </button>
+        {location.pathname === '/profile' ? (
+          <button
+            type="button"
+            className="btn btn-primary ms-auto me-2"
+            onClick={() => {
+              setShow(true)
+            }}
+          >
+            edit
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-primary ms-auto me-2"
+            onClick={() => {
+              navigate('/add-transaction')
+            }}
+          >
+            Add
+          </button>
+        )}
 
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
@@ -79,6 +94,9 @@ const NavigationBar = () => {
             >
               Logout
             </button>
+            {show && (
+              <ProfileModal show={show} handleHide={() => setShow(false)} />
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

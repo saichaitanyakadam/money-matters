@@ -31,7 +31,7 @@ const ProfileModal = ({show, handleHide}) => {
     if (credential.profilePic[0])
       formData.append('profilePic', credential.profilePic[0])
     const {data} = await axios.put(
-      'http://localhost:4500/api/user/profile/edit',
+      'https://money-matters-backend.onrender.com/api/user/profile/edit',
       formData,
       {
         headers: {

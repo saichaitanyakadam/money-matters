@@ -1,12 +1,8 @@
-import {useState} from 'react'
-import axios from 'axios'
 import {format} from 'date-fns'
-import Cookies from 'js-cookie'
 import Table from 'react-bootstrap/Table'
 import {BsArrowDownCircle, BsArrowUpCircle, BsTrash} from 'react-icons/bs'
 import {MdOutlineModeEditOutline} from 'react-icons/md'
 import './index.css'
-import profilePic from '../../assets/Ellipse103.png'
 import {tableHead} from '../../constants/AppConstants'
 import {useNavigate} from 'react-router-dom'
 

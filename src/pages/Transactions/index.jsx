@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Header from '../../common-components/Header'
@@ -12,11 +12,11 @@ const Transactions = () => {
   const [type, setType] = useState('')
   const [loading, setLoading] = useState(true)
   const [offset, setOffset] = useState(0)
-  const getData = async () => {
+  const getData = useCallback(async () => {
     try {
       const accessToken = Cookies.get('accessToken')
       const {data} = await axios.get(
-        `http://localhost:4500/api/transactions/?type=${type}`,
+        `https://money-matters-backend.onrender.com/api/transactions/?type=${type}`,
         {
           headers: {
             'content-type': 'application/json',
@@ -30,12 +30,13 @@ const Transactions = () => {
       setTableData(data)
     } catch (e) {
       console.error(e)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
-  }
+  }, [offset, type, loading, tableData])
   useEffect(() => {
     getData()
-  }, [offset, type])
+  }, [])
 
   return (
     <div className="w-100">

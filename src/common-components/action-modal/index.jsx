@@ -19,7 +19,7 @@ const ActionModal = () => {
     try {
       const accessToken = Cookie.get('accessToken')
       const {data} = await axios.delete(
-        `http://localhost:4500/api/transactions/${params.transactionId}`,
+        `https://money-matters-backend.onrender.com/api/transactions/${params.transactionId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

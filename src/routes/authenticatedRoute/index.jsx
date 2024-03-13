@@ -16,7 +16,7 @@ const AuthenticatedRoute = ({children}) => {
       try {
         const accessToken = Cookies.get('accessToken')
         const {data} = await axios.get(
-          'http://localhost:4500/api/user/profile',
+          'https://money-matters-backend.onrender.com/api/user/profile',
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,

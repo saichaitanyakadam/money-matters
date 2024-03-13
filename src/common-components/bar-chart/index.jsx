@@ -18,7 +18,7 @@ const BarChartView = ({graphData}) => (
       margin={{
         top: 5,
         right: 30,
-        left: 5,
+        left: 0,
         bottom: 5,
       }}
     >

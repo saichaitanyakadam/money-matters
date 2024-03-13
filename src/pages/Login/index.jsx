@@ -15,10 +15,13 @@ const Login = () => {
 
   const onFormSubmit = async credential => {
     try {
-      const {data} = await axios.post('http://localhost:4500/api/user/login', {
-        username: credential.username,
-        password: credential.password,
-      })
+      const {data} = await axios.post(
+        'https://money-matters-backend.onrender.com/api/user/login',
+        {
+          username: credential.username,
+          password: credential.password,
+        },
+      )
       Cookie.set('accessToken', data, {
         expires: 15,
       })

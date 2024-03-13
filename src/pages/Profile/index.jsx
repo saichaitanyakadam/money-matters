@@ -1,19 +1,10 @@
-import {useState, useEffect, useContext} from 'react'
-import axios from 'axios'
-import Cookies from 'js-cookie'
-import {format} from 'date-fns'
+import {useState, useContext} from 'react'
 import Header from '../../common-components/Header'
 import './index.css'
-import LoaderView from '../../common-components/loader'
-import profile from '../../assets/pexels-christina-morillo-1181690 1.png'
-import {profileForm} from '../../constants/AppConstants'
-import {MdOutlineModeEdit} from 'react-icons/md'
-import {useNavigate} from 'react-router'
 import {AppContext} from '../../context/AppContext'
 import ProfileModal from '../../common-components/profile-modal'
 
 const Profile = () => {
-  const navigate = useNavigate()
   const [show, setShow] = useState(false)
   const {profileData} = useContext(AppContext)
 

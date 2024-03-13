@@ -35,7 +35,7 @@ const ModalBtn = ({handleEvent, formType}) => {
   const handleEdit = async (data, accessToken) => {
     try {
       await axios.put(
-        `http://localhost:4500/api/transactions/${params.transactionId}`,
+        `https://money-matters-backend.onrender.com/api/transactions/${params.transactionId}`,
         {
           transactionName: data.transactionName,
           transactionType: data.transactionType,
@@ -57,7 +57,7 @@ const ModalBtn = ({handleEvent, formType}) => {
   const handleAdd = async (data, accessToken) => {
     try {
       await axios.post(
-        'http://localhost:4500/api/transactions/add',
+        'https://money-matters-backend.onrender.com/api/transactions/add',
         {
           transactionName: data.transactionName,
           transactionType: data.transactionType,
