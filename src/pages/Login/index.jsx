@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form'
 import axios from 'axios'
 import Cookie from 'js-cookie'
 import './index.css'
+import toast, {Toaster} from 'react-hot-toast'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -23,6 +24,7 @@ const Login = () => {
       })
       navigate('/')
     } catch (error) {
+      toast.error(error?.response?.data)
       console.error(error)
     }
   }
@@ -72,6 +74,7 @@ const Login = () => {
           Don't have account? <Link to="/sign-up">Sign up</Link>
         </p>
       </form>
+      <Toaster position="bottom-center" />
     </div>
   )
 }

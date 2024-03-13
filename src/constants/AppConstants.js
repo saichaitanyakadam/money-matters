@@ -31,7 +31,7 @@ export const SIDEBAR = [
 export const transactionTypes = [
   {
     id: 1,
-    type: 'all',
+    type: '',
     label: 'All Transactions',
   },
   {

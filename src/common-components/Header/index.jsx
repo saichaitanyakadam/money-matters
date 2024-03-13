@@ -1,19 +1,17 @@
 import {useState} from 'react'
-import axios from 'axios'
-import Cookie from 'js-cookie'
 import Button from 'react-bootstrap/Button'
 import {AiOutlinePlus} from 'react-icons/ai'
 import './index.css'
-import ModalBtn from '../modal'
 import {useNavigate} from 'react-router-dom'
 
 const Header = ({
   heading,
   addTransactionBtn,
-  transactionTypes,
-  activeTab,
-  setActiveTab,
+  type,
+  setType,
   getData,
+  edit,
+  handleEdit,
 }) => {
   const navigate = useNavigate()
 
@@ -35,23 +33,18 @@ const Header = ({
             </Button>
           </>
         )}
-      </div>
-      {transactionTypes && (
-        <ul className="header-list">
-          {transactionTypes.map(item => (
-            <li
-              onClick={() => setActiveTab(item.type)}
-              key={item.id}
-              className={`list-item ${
-                activeTab === item.type &&
-                'text-primary border-bottom border-2 border-primary'
-              }`}
+        {edit && (
+          <>
+            <Button
+              variant="primary"
+              onClick={handleEdit}
+              className="d-none d-lg-block"
             >
-              {item.label}
-            </li>
-          ))}
-        </ul>
-      )}
+              Edit Profile
+            </Button>
+          </>
+        )}
+      </div>
     </div>
   )
 }

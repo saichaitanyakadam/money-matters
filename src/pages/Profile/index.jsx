@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import {format} from 'date-fns'
@@ -8,39 +8,19 @@ import LoaderView from '../../common-components/loader'
 import profile from '../../assets/pexels-christina-morillo-1181690 1.png'
 import {profileForm} from '../../constants/AppConstants'
 import {MdOutlineModeEdit} from 'react-icons/md'
+import {useNavigate} from 'react-router'
+import {AppContext} from '../../context/AppContext'
+import ProfileModal from '../../common-components/profile-modal'
 
 const Profile = () => {
-  const [loading, setLoading] = useState(true)
-
-  const [profileData, setProfileData] = useState({})
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const accessToken = Cookies.get('accessToken')
-        const {data} = await axios.get(
-          'http://localhost:4500/api/user/profile',
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        )
-        setProfileData(data)
-      } catch (e) {
-        console.error(e)
-      }
-      setLoading(false)
-    }
-    getData()
-  }, [])
+  const navigate = useNavigate()
+  const [show, setShow] = useState(false)
+  const {profileData} = useContext(AppContext)
 
   return (
     <div className="">
-      <Header heading="Profile" />
-      {loading ? (
-        <LoaderView />
-      ) : (
+      <Header heading="Profile" edit handleEdit={() => setShow(true)} />
+      {
         <div className="container">
           <div className="row px-4">
             <div className="col-12 col-lg-4 p-3 d-flex justify-content-center">
@@ -82,8 +62,11 @@ const Profile = () => {
               </div>
             </div>
           </div>
+          {show && (
+            <ProfileModal show={show} handleHide={() => setShow(false)} />
+          )}
         </div>
-      )}
+      }
     </div>
   )
 }

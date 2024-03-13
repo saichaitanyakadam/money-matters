@@ -72,7 +72,7 @@ const ModalBtn = ({handleEvent, formType}) => {
         },
       )
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

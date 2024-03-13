@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import axios from 'axios'
 import Cookie from 'js-cookie'
 import Header from '../../common-components/Header'
@@ -8,6 +8,7 @@ import DataTable from '../../common-components/data-table'
 import LoaderView from '../../common-components/loader'
 import BarChartView from '../../common-components/bar-chart'
 import debitImage from '../../assets/debit.svg'
+import EmptyTransactionsView from '../../common-components/empty-transaction'
 
 const Home = () => {
   const [loading, setLoading] = useState(true)
@@ -15,7 +16,7 @@ const Home = () => {
   const [weeklyData, setWeeklyData] = useState([])
   const [transactionsData, setTransactionsData] = useState([])
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const accessToken = Cookie.get('accessToken')
     const {data} = await axios.get('http://localhost:4500/api/transactions', {
       headers: {
@@ -44,12 +45,12 @@ const Home = () => {
       },
     )
     setAmountData(amountData.data)
-  }
+  }, [])
 
   useEffect(() => {
     getData()
     setLoading(false)
-  }, [])
+  }, [getData])
   return (
     <div className="w-100">
       <Header heading="Accounts" addTransactionBtn getData={getData} />
@@ -61,7 +62,9 @@ const Home = () => {
             <div className="d-flex flex-column flex-lg-row col-lg-6 mb-5 gap-2">
               <div className="w-lg-50 col-12 d-flex justify-content-between border p-3">
                 <p className="amount-text text-success">
-                  ${amountData.filter(item => item?._id === 'credit')[0]?.value}{' '}
+                  $
+                  {amountData.filter(item => item?._id === 'credit')[0]
+                    ?.value || 0}{' '}
                   <br />
                   <span>Credit</span>
                 </p>
@@ -73,7 +76,9 @@ const Home = () => {
               </div>
               <div className="w-lg-50 d-flex col-12 justify-content-between border p-3">
                 <p className="amount-text text-danger">
-                  ${amountData.filter(item => item?._id === 'debit')[0]?.value}{' '}
+                  $
+                  {amountData.filter(item => item?._id === 'debit')[0]?.value ||
+                    0}{' '}
                   <br />
                   <span>Debit</span>
                 </p>
@@ -84,10 +89,19 @@ const Home = () => {
                 />
               </div>
             </div>
-            <h3>Last Transactions</h3>
-            <DataTable tableData={transactionsData} getData={getData} />
-            <h3>Debit & Credit Overview</h3>
-            <BarChartView graphData={weeklyData} />
+            {transactionsData.length < 1 ? (
+              <EmptyTransactionsView />
+            ) : (
+              <>
+                <h3>Last Transactions</h3>
+                <DataTable
+                  tableData={transactionsData.slice(0, 3)}
+                  getData={getData}
+                />
+                <h3>Debit & Credit Overview</h3>
+                <BarChartView graphData={weeklyData} />
+              </>
+            )}
           </div>
         </div>
       )}

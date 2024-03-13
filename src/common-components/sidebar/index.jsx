@@ -1,5 +1,5 @@
 import {Link, useNavigate} from 'react-router-dom'
-import {useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import './index.css'
@@ -8,31 +8,12 @@ import Logo from '../../assets/Logo.png'
 import {SIDEBAR} from '../../constants/AppConstants'
 import profilePic from '../../assets/Avatar.svg'
 import ActionModal from '../action-modal'
+import {AppContext} from '../../context/AppContext'
 
 const Sidebar = ({path}) => {
-  const [profileData, setProfileData] = useState({})
+  const {profileData} = useContext(AppContext)
   const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const accessToken = Cookies.get('accessToken')
-        const {data} = await axios.get(
-          'http://localhost:4500/api/user/profile',
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        )
-        setProfileData(data)
-      } catch (e) {
-        console.error(e)
-      }
-    }
-    getData()
-  }, [])
 
   return (
     <div className="sidebar d-flex flex-column justify-content-between position-fixed d-none d-lg-flex">
