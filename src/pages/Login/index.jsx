@@ -74,7 +74,7 @@ const Login = () => {
           Login
         </button>
         <p>
-          Don't have account? <Link to="/sign-up">Sign up</Link>
+          Do not have account? <Link to="/sign-up">Sign up</Link>
         </p>
       </form>
       <Toaster position="bottom-center" />

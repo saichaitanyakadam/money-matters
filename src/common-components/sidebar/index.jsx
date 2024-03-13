@@ -1,18 +1,14 @@
+/* eslint-disable react/prop-types */
 import {Link, useNavigate} from 'react-router-dom'
-import {useContext, useEffect, useState} from 'react'
-import axios from 'axios'
-import Cookies from 'js-cookie'
+import {useContext} from 'react'
 import './index.css'
 import {FiLogOut} from 'react-icons/fi'
 import Logo from '../../assets/Logo.png'
 import {SIDEBAR} from '../../constants/AppConstants'
-import profilePic from '../../assets/Avatar.svg'
-import ActionModal from '../action-modal'
 import {AppContext} from '../../context/AppContext'
 
 const Sidebar = ({path}) => {
   const {profileData} = useContext(AppContext)
-  const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
 
   return (

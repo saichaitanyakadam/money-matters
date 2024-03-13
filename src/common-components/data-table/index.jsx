@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {format} from 'date-fns'
 import Table from 'react-bootstrap/Table'
 import {BsArrowDownCircle, BsArrowUpCircle, BsTrash} from 'react-icons/bs'

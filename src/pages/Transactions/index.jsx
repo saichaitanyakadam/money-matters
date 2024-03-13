@@ -16,14 +16,14 @@ const Transactions = () => {
     try {
       const accessToken = Cookies.get('accessToken')
       const {data} = await axios.get(
-        `https://money-matters-backend.onrender.com/api/transactions/?type=${type}`,
+        `https://money-matters-backend.onrender.com/api/transactions/`,
         {
           headers: {
             'content-type': 'application/json',
             Authorization: `Bearer ${accessToken}`,
           },
           params: {
-            offset,
+            type,
           },
         },
       )
@@ -33,10 +33,11 @@ const Transactions = () => {
     } finally {
       setLoading(false)
     }
-  }, [offset, type, loading, tableData])
+  }, [type])
   useEffect(() => {
+    setLoading(true)
     getData()
-  }, [])
+  }, [offset, getData])
 
   return (
     <div className="w-100">

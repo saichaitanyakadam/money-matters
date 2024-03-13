@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import {useForm} from 'react-hook-form'
@@ -20,7 +21,7 @@ const ProfileModal = ({show, handleHide}) => {
       setValue('username', profileData.username)
       setValue('email', profileData.email)
     }
-  }, [])
+  }, [profileData, setValue])
 
   const onSubmitForm = async credential => {
     const accessToken = Cookies.get('accessToken')

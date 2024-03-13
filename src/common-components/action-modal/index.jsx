@@ -18,7 +18,7 @@ const ActionModal = () => {
   const handleDelete = async () => {
     try {
       const accessToken = Cookie.get('accessToken')
-      const {data} = await axios.delete(
+      await axios.delete(
         `https://money-matters-backend.onrender.com/api/transactions/${params.transactionId}`,
         {
           headers: {

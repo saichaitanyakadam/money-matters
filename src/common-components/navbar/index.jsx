@@ -1,7 +1,5 @@
 import {Link, useLocation, useNavigate} from 'react-router-dom'
 import {useState} from 'react'
-import axios from 'axios'
-import Cookie from 'js-cookie'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'

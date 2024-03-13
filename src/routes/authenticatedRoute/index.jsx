@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import {useLocation} from 'react-router-dom'
 import Sidebar from '../../common-components/sidebar'
 import './index.css'
 import NavigationBar from '../../common-components/navbar'
-import {useContext, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {AppContext} from '../../context/AppContext'
 import Cookies from 'js-cookie'
 import axios from 'axios'
@@ -12,7 +13,6 @@ const AuthenticatedRoute = ({children}) => {
   const [profileData, setProfileData] = useState({})
   useEffect(() => {
     const getData = async () => {
-      const accessToken = Cookies.get('accessToken')
       try {
         const accessToken = Cookies.get('accessToken')
         const {data} = await axios.get(

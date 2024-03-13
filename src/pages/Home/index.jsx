@@ -54,11 +54,11 @@ const Home = () => {
     } finally {
       setLoading(false)
     }
-  }, [transactionsData, loading])
+  }, [])
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [getData])
   return (
     <div className="w-100">
       <Header heading="Accounts" addTransactionBtn getData={getData} />

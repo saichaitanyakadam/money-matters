@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {useEffect, useState} from 'react'
 import {useForm} from 'react-hook-form'
 import Button from 'react-bootstrap/Button'
@@ -11,7 +12,7 @@ import {useLocation, useParams} from 'react-router-dom'
 import axios from 'axios'
 import Cookie from 'js-cookie'
 
-const ModalBtn = ({handleEvent, formType}) => {
+const ModalBtn = ({formType}) => {
   const {
     register,
     handleSubmit,

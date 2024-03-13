@@ -1,18 +1,10 @@
-import {useState} from 'react'
+/* eslint-disable react/prop-types */
 import Button from 'react-bootstrap/Button'
 import {AiOutlinePlus} from 'react-icons/ai'
 import './index.css'
 import {useNavigate} from 'react-router-dom'
 
-const Header = ({
-  heading,
-  addTransactionBtn,
-  type,
-  setType,
-  getData,
-  edit,
-  handleEdit,
-}) => {
+const Header = ({heading, addTransactionBtn, edit, handleEdit}) => {
   const navigate = useNavigate()
 
   return (

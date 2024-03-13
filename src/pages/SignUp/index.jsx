@@ -1,7 +1,6 @@
 import {Link, useNavigate} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import axios from 'axios'
-import Cookie from 'js-cookie'
 import './index.css'
 import toast, {Toaster} from 'react-hot-toast'
 
