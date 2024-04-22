@@ -8,10 +8,8 @@
 
 </details>
 
-### Application
+# Delpoyed Link
 
-<a href="https://kadam.ccbp.tech/login">website</a>
+<a href="https://money-matters-chaitanya.netlify.app/">website</a>
 
 ### Credentials for application
-
-For Admin id :admin@gmail.com <br/> pass:Admin@123
